@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitScience AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#121212">
+    <link rel="apple-touch-icon" href="icon.png"> 
+</head>
+<body>
+
+    <nav class="navbar">
+        <button onclick="showTab('profile')">👤 Perfil</button>
+        <button onclick="showTab('workout')">💪 Treino</button>
+        <button onclick="showTab('diet')">🍎 Dieta</button>
+        <button onclick="showTab('tracker')">📝 Log</button>
+    </nav>
+
+    <div id="app-container">
+        
+        <!-- PERFIL -->
+        <div id="profile" class="tab active">
+            <h2>Meus Dados & IA</h2>
+            <div class="form-group">
+                <label>Peso (kg):</label>
+                <input type="number" id="weight" placeholder="Ex: 80">
+            </div>
+            <div class="form-group">
+                <label>Altura (cm):</label>
+                <input type="number" id="height" placeholder="Ex: 175">
+            </div>
+            <div class="form-group">
+                <label>Idade:</label>
+                <input type="number" id="age" placeholder="Ex: 25">
+            </div>
+            <div class="form-group">
+                <label>Sexo:</label>
+                <select id="gender">
+                    <option value="male">Masculino</option>
+                    <option value="female">Feminino</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Objetivo:</label>
+                <select id="goal">
+                    <option value="lose">Perder Gordura (Cutting)</option>
+                    <option value="maintain">Manter Peso</option>
+                    <option value="gain">Ganhar Massa (Bulking)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Dias Disponíveis p/ Treino:</label>
+                <select id="days">
+                    <option value="3">3 Dias (Full Body)</option>
+                    <option value="4">4 Dias (Upper/Lower)</option>
+                    <option value="5">5 Dias (PPL Upper/Lower)</option>
+                    <option value="6">6 Dias (ABC x2)</option>
+                </select>
+            </div>
+            <button class="btn-primary" onclick="generateAll()">✨ Gerar Plano Completo com IA</button>
+        </div>
+
+        <!-- TREINO -->
+        <div id="workout" class="tab">
+            <h2>Seu Plano de Treino</h2>
+            <div id="workout-plan" class="output-area">
+                <p>Preencha seu perfil e gere o plano.</p>
+            </div>
+        </div>
+
+        <!-- DIETA -->
+        <div id="diet" class="tab">
+            <h2>Sua Dieta Calculada</h2>
+            <div id="diet-plan" class="output-area">
+                <p>Aguardando dados...</p>
+            </div>
+        </div>
+
+        <!-- TRACKER -->
+        <div id="tracker" class="tab">
+            <h2>Registrar Treino de Hoje</h2>
+            <div class="form-group">
+                <label>Exercício:</label>
+                <input type="text" id="track-ex" placeholder="Ex: Supino Reto">
+            </div>
+            <div class="row">
+                <input type="number" id="track-kg" placeholder="Carga (kg)">
+                <input type="number" id="track-reps" placeholder="Reps">
+            </div>
+            <button class="btn-secondary" onclick="saveSet()">Salvar Série</button>
+            
+            <h3>Histórico Recente</h3>
+            <ul id="history-list"></ul>
+            <button class="btn-danger" onclick="clearHistory()">Limpar Histórico</button>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</body>
+</html>
